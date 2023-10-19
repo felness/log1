@@ -22,13 +22,14 @@
 
 ## Задание 1.1: Предикат обработки списка
 
-`tail_separator_(List, Value, Result) :-` - что делает предикат
+`tail_separator_(List, Value, Result) :- 
+    append(_, [Value|Result], List).` - этот предикат отделяет хвост, начиная с элемента с данным значением
 
 Примеры использования:
 ```prolog
-?- mypred([1,2,3],X).
-X=4.
-?- mypred(X,[4]).
+?- tail_separator([1, 2, 3, 4, 6], 3, Result).
+Result=[4,6]
+?- tail_separator([1, 2, 3, 4, 6], 3, Result).
 X=[1,2,3].
 ```
 
