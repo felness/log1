@@ -22,29 +22,48 @@
 
 ## Задание 1.1: Предикат обработки списка
 
-`tail_separator_(List, Value, Result) :- 
-    append(_, [Value|Result], List).` - этот предикат отделяет хвост, начиная с элемента с данным значением
+`tail_separator_(List, Value, Result).` - этот предикат отделяет хвост, начиная с элемента с данным значением
 
 Примеры использования:
 ```prolog
 ?- tail_separator([1, 2, 3, 4, 6], 3, Result).
 Result=[4,6]
-?- tail_separator([1, 2, 3, 4, 6], 3, Result).
-X=[1,2,3].
+?- tail_separator([2, 1, 3, 4, 6], 2, Result).
+Result=[3,4,6].
 ```
 
 Реализация:
 ```prolog
-mypred([],[]).
+tail_separator_(List, Value, Result) :- 
+    append(_, [Value|Result], List).
 ...
 ```
 
-Опишите своими словами принцип работы предиката обработки списка.
+В  реализации используется предикат append, который объединяет части списка.
+
 
 ## Задание 1.2: Предикат обработки числового списка
+`list_product(List, Product).` - этот предикат вычисляет произведение всех элементов списка
+Примеры использования:
+```prolog
+?-list_product([2, 3, 4], Product). 
+Product = 24.
+?-list_product([1, 2, 3, 5], Product). 
+Product = 30.
+```
 
-*Опишите предикат по образцу выше*
+Реализация:
+```prolog
+list_product(List, Product) :-
+    product_list(List, 1, Product).
 
+product_list([], Product, Product).
+product_list([H|T], Accumulator, Product) :-
+    NewAccumulator is Accumulator * H,
+    product_list(T, NewAccumulator, Product).
+...
+```
+предикат  вычисляет произведение всех элементов списка. В  реализации мы используем предикат product_list, который рекурсивно перемножает элементы списка, передавая аккумулятор, который хранит текущее произведение. 
 ## Задание 2: Реляционное представление данных
 
 Опишите, в чем преимущества и недостатки реляционного представления в целом, и конкретного представления, которое вы использовали.
